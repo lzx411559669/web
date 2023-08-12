@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .flip {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .flip div {
+      width: 100px;
+      height: 100px;
+      background: red;
+      position: relative;
+      margin: 10px 10px;
+      border-radius: 10px;
+    }
+    .flip div span {
+      width: 40px;
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      color: white;
+    }
+    .btn {
+    }
+  </style>
+  <body>
+    <div class="flip">
+      <div>test</div>
+    </div>
+    <div>
+      <button id="btn">add</button>
+    </div>
+  </body>
+  <script src="./FlipAnimate.js"></script>
+  <script>
+    let count = 0;
+    const data = ["谷歌浏览器", "QQ浏览器", "发送到", "刘兆玄", "刘德华"];
+    const ul = document.querySelector(".flip");
+    const btn = document.getElementById("btn");
+    const list = document.getElementsByClassName("box");
+    btn.onclick = () => {
+      const flipAnimate = new FlipAnimate(list);
+      const box = document.getElementsByClassName("flip")[0];
+      const div = document.createElement("div");
+      const span = document.createElement("span");
+      span.innerText = "删除";
+      span.onclick = delteItem;
+      div.innerText = `box${count++}`;
+      div.className = "box";
+      div.style.background = "green";
+      div.appendChild(span);
+      box.insertBefore(div, box.childNodes[0]);
+      flipAnimate.play();
+    };
+    update();
+
+    function update(params) {
+      for (let i = 0; i < data.length; i++) {
+        const div = document.createElement("div");
+        const span = document.createElement("span");
+        span.innerText = "删除";
+        span.onclick = delteItem;
+        div.innerText = data[i];
+        div.className = "box";
+        div.appendChild(span);
+        ul.append(div);
+      }
+    }
+
+    function add() {}
+
+    function delteItem({ target }) {
+      const list = document.getElementsByClassName("box");
+      const flipAnimate = new FlipAnimate(list);
+
+      target.parentNode.remove();
+      flipAnimate.play();
+    }
+  </script>
+</html>
